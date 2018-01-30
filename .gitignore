@@ -1,1 +1,3 @@
 /vscode-updater
+*.tar.gz
+*.tar.xz
