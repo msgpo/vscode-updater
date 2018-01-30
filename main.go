@@ -38,6 +38,7 @@ type edition struct {
 	Name        string
 	FullName    string
 	Description string
+	WMClass     string
 	Channel     string
 }
 
@@ -46,12 +47,14 @@ var editions = []edition{
 		Name:        "code",
 		FullName:    "Visual Studio Code",
 		Description: "Code Editing. Redefined.",
+		WMClass:     "code",
 		Channel:     "stable",
 	},
 	{
 		Name:        "code-insiders",
 		FullName:    "Visual Studio Code - Insiders",
 		Description: "Code Editing. Redefined.",
+		WMClass:     "code - insiders",
 		Channel:     "insider",
 	},
 }
@@ -144,6 +147,7 @@ func buildPackage(meta *metaData, edition *edition) error {
 			Name:        edition.Name,
 			FullName:    edition.FullName,
 			Description: edition.Description,
+			WMClass:     edition.WMClass,
 		})
 	f.Close()
 	if err != nil {

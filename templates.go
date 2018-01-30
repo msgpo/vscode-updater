@@ -44,6 +44,7 @@ type desktopData struct {
 	Name        string
 	FullName    string
 	Description string
+	WMClass     string
 }
 
 var desktopTmpl = template.Must(template.New("desktop").Parse(`[Desktop Entry]
@@ -55,7 +56,7 @@ Exec=/usr/bin/{{.Name}} %f
 Type=Application
 Terminal=false
 StartupNotify=true
-StartupWMClass={{.Name}}
+StartupWMClass={{.WMClass}}
 Categories=Development;WebDevelopment;IDE;Utility;TextEditor;
 MimeType=text/plain;inode/directory;
 Keywords=vscode;
