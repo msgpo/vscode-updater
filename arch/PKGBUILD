@@ -1,8 +1,8 @@
 # Maintainer: Vlad Zagorodniy <vladzzag@gmail.com>
 
 pkgname=vscode-updater
-pkgver=1.0
-pkgrel=1
+pkgver=1.1
+pkgrel=2
 pkgdesc="Visual Studio Code updater"
 arch=('x86_64')
 url="https://github.com/zzag/vscode-updater"
@@ -11,8 +11,8 @@ makedepends=('git' 'go')
 source=("$pkgname-$pkgver.tar.gz"::"https://github.com/zzag/vscode-updater/archive/$pkgver.tar.gz"
         'vscode-updater.service'
         'vscode-updater.sysusers')
-sha256sums=('2e5fa8544f6f4782c394bc2bc13434e5a16ad082e30a6bbb3e8838ab2f3c6a4e'
-            'b25561c2c675fcfe11bd07cf31fdd2eae8cb482fc0c1cc231ba7d9acf8a13bdc'
+sha256sums=('0ff5617baf5fc0ab9ea149090523f9171ff1f900cfbcb8823f3876a2b32be1a5'
+            'cc76a6dd79413461ce244aab4335b29f20e69f632a1bced74d65a3789ac9cdb7'
             '3b17562b1c71d95ef1849cd09d68616800bbea563ce7d827638f510053b462b4')
 
 prepare() {
