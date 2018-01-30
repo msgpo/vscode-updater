@@ -1,0 +1,31 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "a/soEk70seAv+tgh6WPWNpUHBc8=",
+			"path": "github.com/sirupsen/logrus",
+			"revision": "768a92a02685ee7535069fc1581341b41bab9b72",
+			"revisionTime": "2018-01-29T18:18:52Z"
+		},
+		{
+			"checksumSHA1": "6U7dCaxxIMjf5V02iWgyAwppczw=",
+			"path": "golang.org/x/crypto/ssh/terminal",
+			"revision": "1875d0a70c90e57f11972aefd42276df65e895b9",
+			"revisionTime": "2018-01-27T19:02:20Z"
+		},
+		{
+			"checksumSHA1": "SJt1IQo7cq9LcxmoXVpR+vMh09E=",
+			"path": "golang.org/x/sys/unix",
+			"revision": "3dbebcf8efb6a5011a60c2b4591c1022a759af8a",
+			"revisionTime": "2018-01-29T10:11:38Z"
+		},
+		{
+			"checksumSHA1": "eQq+ZoTWPjyizS9XalhZwfGjQao=",
+			"path": "golang.org/x/sys/windows",
+			"revision": "3dbebcf8efb6a5011a60c2b4591c1022a759af8a",
+			"revisionTime": "2018-01-29T10:11:38Z"
+		}
+	],
+	"rootPath": "github.com/zzag/vscode-updater"
+}
