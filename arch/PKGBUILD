@@ -11,8 +11,8 @@ makedepends=('git' 'go')
 source=("$pkgname-$pkgver.tar.gz"::"https://github.com/zzag/vscode-updater/archive/$pkgver.tar.gz"
         'vscode-updater.service'
         'vscode-updater.sysusers')
-sha256sums=('d047ea71fe83788fa92c1cdb3aa2e07bcfb87eae63a2ee5b5c5b14e0a5a70ce6'
-            'd237e68ed5d9b731fc0161c864f456ea1a5c19fe7d13c558eccb93cafad73dfb'
+sha256sums=('2e5fa8544f6f4782c394bc2bc13434e5a16ad082e30a6bbb3e8838ab2f3c6a4e'
+            'b25561c2c675fcfe11bd07cf31fdd2eae8cb482fc0c1cc231ba7d9acf8a13bdc'
             '3b17562b1c71d95ef1849cd09d68616800bbea563ce7d827638f510053b462b4')
 
 prepare() {
