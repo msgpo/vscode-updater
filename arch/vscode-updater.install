@@ -12,6 +12,9 @@ post_install() {
   echo
   echo "    then enable vscode-updater service"
   echo "        systemctl enable vscode-updater"
+  echo
+  echo "    also, enable NetworkManager-wait-online service"
+  echo "        systemctl enable NetworkManager-wait-online"
 }
 
 post_upgrade() {
