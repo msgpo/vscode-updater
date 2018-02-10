@@ -2,7 +2,7 @@
 
 pkgname=vscode-updater
 pkgver=1.1
-pkgrel=4
+pkgrel=5
 pkgdesc="Visual Studio Code updater"
 arch=('x86_64')
 url="https://github.com/zzag/vscode-updater"
