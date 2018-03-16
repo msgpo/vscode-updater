@@ -1,17 +1,20 @@
 # Maintainer: Vlad Zagorodniy <vladzzag@gmail.com>
 pkgname=vscode-updater
-pkgver=1.2
+pkgver=1.2.0.g82044d8
 pkgrel=1
 pkgdesc="Visual Studio Code updater"
 arch=('x86_64')
 url="https://github.com/zzag/vscode-updater"
 license=('MIT')
+depends=(glibc)
 makedepends=('git' 'go')
 source=("git+https://github.com/zzag/$pkgname.git")
 sha256sums=('SKIP')
 
 pkgver() {
   cd "$pkgname"
+
+  printf "%s" "$(git describe --long --tags | sed 's/\([^-]*-\)g/r\1/;s/-/./g')"
 }
 
 prepare() {
