@@ -1,6 +1,6 @@
 # Maintainer: Vlad Zagorodniy <vladzzag@gmail.com>
 pkgname=vscode-updater
-pkgver=1.2.0.g82044d8
+pkgver=1.2.r1.226c6fc
 pkgrel=1
 pkgdesc="Visual Studio Code updater"
 arch=('x86_64')
