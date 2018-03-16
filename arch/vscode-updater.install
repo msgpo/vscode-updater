@@ -5,18 +5,14 @@ post_install() {
   mkdir -p /usr/local/repo/vscode
   chown -R vscode-updater:vscode-updater /usr/local/repo/vscode
 
-  echo "    Add the vscode repo to the pacman.conf"
-  echo "        [vscode]"
-  echo "        SigLevel = Never"
-  echo "        Server = file:///usr/local/repo/vscode"
+  echo "Add the vscode repo to the pacman.conf"
+  echo "    [vscode]"
+  echo "    SigLevel = Never"
+  echo "    Server = file:///usr/local/repo/vscode"
   echo
-  echo "    then enable vscode-updater service"
-  echo "        systemctl enable vscode-updater"
+  echo "then enable vscode-updater timer"
+  echo "    systemctl enable vscode-updater.timer"
   echo
-  echo "    also, enable NetworkManager-wait-online service"
-  echo "        systemctl enable NetworkManager-wait-online"
-}
-
-post_upgrade() {
-  post_install
+  echo "also, enable NetworkManager-wait-online service"
+  echo "    systemctl enable NetworkManager-wait-online"
 }

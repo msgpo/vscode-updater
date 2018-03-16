@@ -1,0 +1,7 @@
+[Unit]
+Description=Visual Studio Code updater
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/vscode-updater/updater
+User=vscode-updater

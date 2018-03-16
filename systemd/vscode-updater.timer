@@ -1,0 +1,12 @@
+[Unit]
+Description=Visual Studio Code updater
+Wants=network-online.target
+After=network-online.target
+
+[Timer]
+OnActiveSec=0
+OnUnitActiveSec=1h
+Unit=vscode-updater.service
+
+[Install]
+WantedBy=multi-user.target

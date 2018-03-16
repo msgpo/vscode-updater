@@ -20,10 +20,10 @@ SigLevel = Never
 Server = file://usr/local/repo/vscode
 ```
 
-Enable the `vscode-updater` service
+Enable the `vscode-updater` timer
 
 ```
-sudo systemctl enable vscode-updater
+sudo systemctl enable vscode-updater.timer
 ```
 
 Also, make sure `NetworkManager-wait-online.service` is enabled
@@ -36,7 +36,7 @@ Reboot. Wait until `code` and `code-insiders` are built. You can
 check log of the vscode-updater by running
 
 ```
-systemctl status vscode-updater
+systemctl status vscode-updater.service
 ```
 
 When it's done, install Visual Studio Code

@@ -1,22 +1,21 @@
 # Maintainer: Vlad Zagorodniy <vladzzag@gmail.com>
-
 pkgname=vscode-updater
-pkgver=1.1
-pkgrel=5
+pkgver=1.2
+pkgrel=1
 pkgdesc="Visual Studio Code updater"
 arch=('x86_64')
 url="https://github.com/zzag/vscode-updater"
 license=('MIT')
 makedepends=('git' 'go')
-source=("$pkgname-$pkgver.tar.gz"::"https://github.com/zzag/vscode-updater/archive/$pkgver.tar.gz"
-        'vscode-updater.service'
-        'vscode-updater.sysusers')
-sha256sums=('0ff5617baf5fc0ab9ea149090523f9171ff1f900cfbcb8823f3876a2b32be1a5'
-            'cc76a6dd79413461ce244aab4335b29f20e69f632a1bced74d65a3789ac9cdb7'
-            '3b17562b1c71d95ef1849cd09d68616800bbea563ce7d827638f510053b462b4')
+source=("git+https://github.com/zzag/$pkgname.git")
+sha256sums=('SKIP')
+
+pkgver() {
+  cd "$pkgname"
+}
 
 prepare() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
 
   # go ignores vendor directory if the project is built outside of GOPATH
   mkdir src && cd src
@@ -25,18 +24,19 @@ prepare() {
 }
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
 
   GOPATH=`pwd` go build
 }
 
 package() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
 
-  install -Dm755 "$pkgname-$pkgver" "$pkgdir/usr/bin/$pkgname"
+  install -Dm755 "$pkgname" "$pkgdir/usr/lib/$pkgname/updater"
   install -Dm644 "LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
-  install -Dm644 "$srcdir/vscode-updater.service" "$pkgdir/usr/lib/systemd/system/vscode-updater.service"
-  install -Dm644 "$srcdir/vscode-updater.sysusers" "$pkgdir/usr/lib/sysusers.d/vscode-updater.conf"
+  install -Dm644 "systemd/vscode-updater.service" "$pkgdir/usr/lib/systemd/system/vscode-updater.service"
+  install -Dm644 "systemd/vscode-updater.timer" "$pkgdir/usr/lib/systemd/system/vscode-updater.timer"
+  install -Dm644 "systemd/vscode-updater.sysusers" "$pkgdir/usr/lib/sysusers.d/vscode-updater.conf"
 }
 
 install=$pkgname.install

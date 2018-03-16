@@ -12,11 +12,11 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
-	"os/signal"
 	"path"
 	"path/filepath"
 	"strings"
-	"time"
+
+	"github.com/godbus/dbus"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -210,17 +210,17 @@ func buildPackage(meta *metaData, edition *edition) error {
 	return nil
 }
 
-func update(edition *edition) {
+func update(edition *edition) bool {
 	log.Infof("checking for %s updates", edition.Name)
 
 	meta, err := fetchMetadata(edition.Channel)
 	if err != nil {
 		log.Errorf("could not fetch metadata: %v", err)
-		return
+		return false
 	}
 
 	if !shouldUpdate(meta, edition) {
-		return
+		return false
 	}
 
 	log.Infof("there is a new update for %s (%s)", edition.Name, meta.Version)
@@ -228,50 +228,49 @@ func update(edition *edition) {
 	err = buildPackage(meta, edition)
 	if err != nil {
 		log.Errorf("could not build package: %v", err)
-		return
+		return false
 	}
 
 	f, err := os.Create(path.Join(dataDir, edition.Name))
 	if err != nil {
 		log.Errorf("could not save state: %v", err)
-		return
+		return false
 	}
 	defer f.Close()
 	json.NewEncoder(f).Encode(meta)
 
 	log.Infof("%v was successfully built", edition.Name)
-}
-
-func updateAll() {
-	for _, e := range editions {
-		update(&e)
-	}
+	return true
 }
 
 func main() {
-	period := flag.Int("period", 1, "check update period (in hours)")
+	noPk := flag.Bool("nopk", false, "whether to drop PackageKit cache (default: false)")
 	flag.Parse()
 
-	quit := make(chan bool)
-	go func() {
-		sig := make(chan os.Signal, 1)
-		signal.Notify(sig, os.Interrupt)
-
-		<-sig
-		log.Warning("shutting down...")
-		quit <- true
-	}()
-
-	ticker := time.NewTicker(time.Duration(*period) * time.Hour)
-	defer ticker.Stop()
-
-	for {
-		updateAll()
-		select {
-		case <-ticker.C:
-			continue
-		case <-quit:
-			return
+	dropPkCache := false
+	for _, e := range editions {
+		if ok := update(&e); ok {
+			dropPkCache = true
 		}
+	}
+
+	if !dropPkCache || *noPk {
+		return
+	}
+
+	bus, err := dbus.SystemBus()
+	if err != nil {
+		log.Errorf("could not establish connection to system bus: %v", err)
+		return
+	}
+
+	obj := bus.Object("org.freedesktop.PackageKit", "/org/freedesktop/PackageKit")
+	call := obj.Call(
+		"org.freedesktop.PackageKit.StateHasChanged",
+		dbus.FlagNoReplyExpected,
+		"posttrans")
+	if call.Err != nil {
+		log.Errorf("could not drop PackageKit cache: %v", call.Err)
+		return
 	}
 }
